@@ -4,8 +4,18 @@ query LatestProducts {
       node {
         id
         name
+        description
         thumbnail {
           url
+        }
+        pricing {
+          priceRange {
+            start {
+              gross {
+                amount
+              }
+            }
+          }
         }
         category {
           name

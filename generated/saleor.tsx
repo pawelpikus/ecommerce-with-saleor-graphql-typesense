@@ -13985,7 +13985,7 @@ export type _Service = {
 export type LatestProductsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type LatestProductsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductCountableConnection', edges: Array<{ __typename?: 'ProductCountableEdge', node: { __typename?: 'Product', id: string, name: string, thumbnail?: { __typename?: 'Image', url: string } | null, category?: { __typename?: 'Category', name: string } | null } }> } | null };
+export type LatestProductsQuery = { __typename?: 'Query', products?: { __typename?: 'ProductCountableConnection', edges: Array<{ __typename?: 'ProductCountableEdge', node: { __typename?: 'Product', id: string, name: string, description?: any | null, thumbnail?: { __typename?: 'Image', url: string } | null, pricing?: { __typename?: 'ProductPricingInfo', priceRange?: { __typename?: 'TaxedMoneyRange', start?: { __typename?: 'TaxedMoney', gross: { __typename?: 'Money', amount: number } } | null } | null } | null, category?: { __typename?: 'Category', name: string } | null } }> } | null };
 
 
 export const LatestProductsDocument = gql`
@@ -13995,8 +13995,18 @@ export const LatestProductsDocument = gql`
       node {
         id
         name
+        description
         thumbnail {
           url
+        }
+        pricing {
+          priceRange {
+            start {
+              gross {
+                amount
+              }
+            }
+          }
         }
         category {
           name
