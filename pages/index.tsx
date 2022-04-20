@@ -1,11 +1,34 @@
 import React from "react";
 import Products from "../components/ProductCollection";
 import clsx from "clsx";
+import { InstantSearch, SearchBox, Hits } from "react-instantsearch-dom";
+import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 
 const navigation = [
   { name: "Products", href: "#", current: true },
   { name: "Wishlist", href: "#", current: false },
 ];
+
+const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
+  server: {
+    apiKey: "xSA2RSbevwkLljzQ8kCDX6NsxoTnHXNZ", // Be sure to use an API key that only allows search operations
+    nodes: [
+      {
+        host: "f05hglcz7e4ks3x9p-1.a1.typesense.net",
+        port: 443,
+        protocol: "https",
+      },
+    ],
+    cacheSearchResultsForSeconds: 2 * 60, // Cache search results from server. Defaults to 2 minutes. Set to 0 to disable caching.
+  },
+  additionalSearchParameters: {
+    query_by: "name, category",
+    query_by_weights: "4,2",
+    num_typos: 1,
+    typo_tokens_threshold: 1,
+  },
+});
+const searchClient = typesenseInstantsearchAdapter.searchClient;
 
 const Home: React.FC = () => {
   return (
