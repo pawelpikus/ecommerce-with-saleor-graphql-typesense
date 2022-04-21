@@ -5,7 +5,7 @@ import Hit from "~/components/Hit";
 
 const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
   server: {
-    apiKey: "xSA2RSbevwkLljzQ8kCDX6NsxoTnHXNZ", // Be sure to use an API key that only allows search operations
+    apiKey: "xSA2RSbevwkLljzQ8kCDX6NsxoTnHXNZ",
     nodes: [
       {
         host: "f05hglcz7e4ks3x9p-1.a1.typesense.net",
@@ -13,7 +13,7 @@ const typesenseInstantsearchAdapter = new TypesenseInstantSearchAdapter({
         protocol: "https",
       },
     ],
-    cacheSearchResultsForSeconds: 2 * 60, // Cache search results from server. Defaults to 2 minutes. Set to 0 to disable caching.
+    cacheSearchResultsForSeconds: 2 * 60,
   },
   additionalSearchParameters: {
     query_by: "name, category",
@@ -30,7 +30,6 @@ const Home = () => {
       <div className="py-10">
         <InstantSearch indexName="products" searchClient={searchClient}>
           <SearchBox />
-
           <Hits hitComponent={Hit} />
         </InstantSearch>
       </div>

@@ -1,0 +1,11 @@
+{
+  "folders": [
+	{
+		"path": "."
+	},
+	{
+		"path": "..\\saleor-typesense-ecommerce"
+	}
+],
+  "settings": {}
+}
