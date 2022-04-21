@@ -51,7 +51,7 @@ const main = async () => {
     fields: [
       { name: "name", type: "string" },
       { name: "description", type: "string" },
-      { name: "category", type: "string" },
+      { name: "category", type: "string", facet: true },
       { name: "price", type: "float" },
       { name: "imageSrc", type: "string" },
     ],
