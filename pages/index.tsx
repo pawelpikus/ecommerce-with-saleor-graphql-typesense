@@ -10,6 +10,7 @@ import {
 } from "react-instantsearch-dom";
 import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 import Hit from "~/components/Hit";
+import "instantsearch.css/themes/satellite.css";
 
 const navigation = [
   { name: "Products", href: "#", current: true },
