@@ -7,10 +7,16 @@ import {
   Hits,
   Pagination,
   RefinementList,
+  Stats,
+  HitsPerPage,
+  SortBy,
+  ClearRefinements,
+  HierarchicalMenu,
 } from "react-instantsearch-dom";
 import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 import Hit from "~/components/Hit";
 import "instantsearch.css/themes/satellite.css";
+import { formatter } from "../utils/priceFormatter";
 
 const navigation = [
   { name: "Products", href: "#", current: true },
@@ -39,7 +45,7 @@ const Home = () => {
   return (
     <>
       <Head>
-        <title>Ecommerce Store with Typesense + Next.js + Vercel</title>
+        <title>Ecommerce Store with Typesense + Saleor GraphQL API</title>
         <link rel="icon" href="/favicon.png" />
       </Head>
       <InstantSearch indexName="products" searchClient={searchClient}>
@@ -78,18 +84,70 @@ const Home = () => {
               </div>
             </header>
 
-            <div className="flex justify-between gap-4">
-              <aside className="w-1/4 p-12">
-                <RefinementList className="mt-3" attribute="category" />
+            <div className="flex justify-between gap-16 px-8">
+              <aside className="pt-8 max-w-fit">
+                <h3 className="text-xl font-bold">Filter by Categories</h3>
+                <RefinementList
+                  className="mt-3"
+                  attribute="category"
+                  limit={3}
+                  showMore={true}
+                  showMoreLimit={10}
+                  searchable={true}
+                  transformItems={(items: any[]) =>
+                    items.sort((a, b) => (a.label > b.label ? 1 : -1))
+                  }
+                />
+                <ClearRefinements className="mt-5" />
               </aside>
-              <main className="w-full">
-                <div className="max-w-6xl">
-                  <div className="my-4">
+              <main className="flex flex-col items-center self-center w-full">
+                <div className="w-full my-8">
+                  <div className="mb-8">
                     <SearchBox />
                   </div>
+                  <div className="flex items-center justify-between mb-4">
+                    <Stats
+                      translations={{
+                        stats(nbHits, processingTimeMS) {
+                          let hitCountPhrase;
+                          if (nbHits === 0) {
+                            hitCountPhrase = "No products";
+                          } else if (nbHits === 1) {
+                            hitCountPhrase = "1 product";
+                          } else {
+                            hitCountPhrase = `${nbHits.toLocaleString()} products`;
+                          }
+                          return `${hitCountPhrase} found in ${processingTimeMS.toLocaleString()}ms`;
+                        },
+                      }}
+                    />
+                    <HitsPerPage
+                      className="ms-4"
+                      items={[
+                        { label: "9 per page", value: 9 },
+                        { label: "18 per page", value: 18 },
+                      ]}
+                      defaultRefinement={9}
+                    />
+                    <SortBy
+                      items={[
+                        { label: "Relevancy", value: "products" },
+                        {
+                          label: "Price (asc)",
+                          value: "products/sort/price:asc",
+                        },
+                        {
+                          label: "Price (desc)",
+                          value: "products/sort/price:desc",
+                        },
+                      ]}
+                      defaultRefinement="products"
+                    />
+                  </div>
+
                   <Hits hitComponent={Hit} />
-                  <Pagination />
                 </div>
+                <Pagination />
               </main>
             </div>
           </div>
