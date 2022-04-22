@@ -11,12 +11,10 @@ import {
   HitsPerPage,
   SortBy,
   ClearRefinements,
-  HierarchicalMenu,
 } from "react-instantsearch-dom";
 import TypesenseInstantSearchAdapter from "typesense-instantsearch-adapter";
 import Hit from "~/components/Hit";
 import "instantsearch.css/themes/satellite.css";
-import { formatter } from "../utils/priceFormatter";
 
 const navigation = [
   { name: "Products", href: "#", current: true },
@@ -144,7 +142,6 @@ const Home = () => {
                       defaultRefinement="products"
                     />
                   </div>
-
                   <Hits hitComponent={Hit} />
                 </div>
                 <Pagination />
